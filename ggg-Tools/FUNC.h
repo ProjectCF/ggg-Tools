@@ -84,7 +84,7 @@ int chkstd(int tp, string str) {
 	return -1;
 }
 void init() {
-	cout << "CF ggg Tools Build5 pre1: MMS" << endl << "input H to get help" << endl;//IBMS added
+	cout << "CF ggg Tools Build5 pre1: MMS" << endl << "input H to get help" << endl;
 	TRIE::cnt = 2;
 	TRIE::add("QUIT", 1, 1);
 	TRIE::add("HELP", 1, 2);
