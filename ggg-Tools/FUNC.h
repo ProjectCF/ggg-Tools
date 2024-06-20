@@ -4,8 +4,6 @@ namespace TRIE {
 		int x, ch[256];
 	}trie[1000010];
 	int cnt;
-	//ROOT1 QUIT=1 EXP=2
-	//ROOT2 BMS=1 0Y=2 CMS=3
 	void add(string str, int rt, int id) {
 		int l = str.length(), c = rt;
 		for (int i = 0; i < l; i++)if (trie[c].ch[str[i]])c = trie[c].ch[str[i]], trie[c].x = 0;
