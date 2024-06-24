@@ -165,7 +165,7 @@ namespace MMS {
 		t = toMMS(ans);
 		cn = 0;
 		for (int i = 2; i < n; i++) {
-			if (ans.size() < i + 1) {
+			while (ans.size() < i + 1) {
 				ans = expand(up, ++cn);
 				t = toMMS(ans);
 			}
@@ -177,6 +177,85 @@ namespace MMS {
 				ans = expand(up, cn = 1);
 				t = toMMS(ans);
 				goto nxt;
+			}
+		}
+		while (ans.size() > n)ans.pop_back();
+		proc2(ans);
+		return ans;
+	}
+	vector<vector<int> > toMMYM(vector<vector<pair<int, int> > > x) {
+		int n = x.size();
+		int m = 0;
+		for (int i = 0; i < n; i++)m = max((size_t)m, x[i].size());
+		proc1(x);
+		vector<vector<int> > ans;
+		for (int i = 0; i < n; i++) {
+			vector<int> v;
+			for (int j = 0; j < m; j++)v.push_back(0);
+			ans.push_back(v);
+		}
+		for (int i = 0; i < n; i++) {
+			int t = 0;
+			while ((t == 0 && m > 1 && x[i][1].col != -1) || (t < m - 1 && x[i][t + 1].col != -1))t++;
+			for (int j = t; j >= 0; j--)ans[i][j] = (j == t ? 1 : ans[i][j + 1] + ans[x[i][j + 1].col][x[i][j + 1].row]);
+		}
+		return ans;
+	}
+	vector<int> toMMY(vector<vector<pair<int, int> > > x) {
+		int n = x.size();
+		vector<vector<int> > ans = toMMYM(x);
+		vector<int> res;
+		for (int i = 0; i < n; i++)res.push_back(ans[i][0]);
+		return res;
+	}
+	vector<vector<pair<int, int> > > fromMMY(vector<int> x) {
+		int n = x.size();
+		vector<vector<pair<int, int> > > ans, up;
+		vector<vector<int> > t;
+		int cn;
+		if (n == 0)return ans;
+		if (n == 1) {
+			vector<pair<int, int> > v;
+			ans.push_back(v);
+			return ans;
+		}
+		int u = x[1] - 1;
+		vector<pair<int, int> > v;
+		ans.push_back(v);
+		up.push_back(v);
+		v.push_back(make_pair(-1, -1));
+		for (int i = 0; i < u; i++)v.push_back(make_pair(0, 0));
+		ans.push_back(v);
+		v.push_back(make_pair(0, 0));
+		up.push_back(v);
+		t = toMMYM(ans);
+		cn = 0;
+		for (int i = 2; i < n; i++) {
+			while (ans.size() < i + 1) {
+				ans = expand(up, ++cn);
+				t = toMMYM(ans);
+			}
+			while (t[i][0] > x[i]) {
+			nxt:;
+				for (int j = 0; j < t[i].size(); j++)if (t[i][j] > 1 && (t[i][j] - 1) < t[i][0] - x[i]) {
+					for (int k = j + 1; k < ans[i].size(); k++)ans[i][k] = make_pair(-1, -1);
+					up = ans;
+					ans = expand(up, cn = 1);
+					t = toMMYM(ans);
+					goto nxt;
+				}
+				while (ans.size() < i + 1) {
+					ans = expand(up, ++cn);
+					t = toMMYM(ans);
+				}
+				if (t[i][0] <= x[i])break;
+				up = ans;
+				ans = expand(up, cn = 0);
+				t = toMMYM(ans);
+				while (ans.size() < i + 1) {
+					ans = expand(up, ++cn);
+					t = toMMYM(ans);
+				}
 			}
 		}
 		while (ans.size() > n)ans.pop_back();

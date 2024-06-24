@@ -57,6 +57,7 @@ string expand(int tp, string str, int n) {
 	if (tp == 6)return BMS::expandstr(str, n, 1);
 	if (tp == 7)return MMS::tostrP(MMS::expand(MMS::parseP(str), n));
 	if (tp == 8)return BMS::tostr(MMS::toMMS(MMS::expand(MMS::fromMMS(BMS::parse(str)), n)));
+	if (tp == 9)return Y0::tostr(MMS::toMMY(MMS::expand(MMS::fromMMY(Y0::parse(str)), n)));
 	return "";
 }
 vector<vector<int> > expand(int tp, vector<vector<int> > x, int n) {
@@ -72,6 +73,10 @@ string cvt(int tp1, int tp2, string str) {
 	if (tp1 == 2 && tp2 == 1)return BMS::tostr(Y0::toBMS(Y0::parse(str)));
 	if (tp1 == 7 && tp2 == 8)return BMS::tostr(MMS::toMMS(MMS::parseP(str)));
 	if (tp1 == 8 && tp2 == 7)return MMS::tostrP(MMS::fromMMS(BMS::parse(str)));
+	if (tp1 == 7 && tp2 == 9)return Y0::tostr(MMS::toMMY(MMS::parseP(str)));
+	if (tp1 == 8 && tp2 == 9)return Y0::tostr(MMS::toMMY(MMS::fromMMS(BMS::parse(str))));
+	if (tp1 == 9 && tp2 == 7)return MMS::tostrP(MMS::fromMMY(Y0::parse(str)));
+	if (tp1 == 9 && tp2 == 8)return BMS::tostr(MMS::toMMS(MMS::fromMMY(Y0::parse(str))));
 	return "Not Supported";
 }
 int chkstd(int tp, string str) {
@@ -84,7 +89,7 @@ int chkstd(int tp, string str) {
 	return -1;
 }
 void init() {
-	cout << "CF ggg Tools Build5 pre1: MMS" << endl << "input H to get help" << endl;
+	cout << "CF ggg Tools Build5: MMS" << endl << "input H to get help" << endl;
 	TRIE::cnt = 2;
 	TRIE::add("QUIT", 1, 1);
 	TRIE::add("HELP", 1, 2);
@@ -99,6 +104,7 @@ void init() {
 	TRIE::add("IBMS", 2, 6);
 	TRIE::add("PMMS", 2, 7);
 	TRIE::add("MMS", 2, 8);
+	TRIE::add("MMY", 2, 9);
 }
 string cstrs[110];
 int cscnt;
