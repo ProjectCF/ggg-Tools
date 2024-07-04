@@ -120,7 +120,7 @@ string loop(string str) {
 		stt = 1;
 		return "";
 	}
-	if (cmd == 2)return "Q:quit\nH:help\nE:expand\nE [Notation] [To Expand] [#FS]\nCV:convert\nCV [From Notation] [To Notation] [To Convert]\nCH:check standard\nCH:check standard\nCH [Notation] [To Check]\nNotations: B:BMS 0:0Y C:CMS H:HMS S:SMS I:IBMS P:PMMS M:MMS";
+	if (cmd == 2)return "Q:quit\nH:help\nE:expand\nE [Notation] [To Expand] [#FS]\nCV:convert\nCV [From Notation] [To Notation] [To Convert]\nCH:check standard\nCH:check standard\nCH [Notation] [To Check]\nNotations: B:BMS 0:0Y C:CMS H:HMS S:SMS I:IBMS P:PMMS MMS:MMS PMMS:PMMS";
 	if (cmd == 3) {
 		int tp = TRIE::q(cstrs[2], 2);
 		if (tp == 0)return "Unknown Type";
