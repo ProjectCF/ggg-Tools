@@ -175,7 +175,7 @@ namespace MMS {
 				while (t[i].size() >= j + 2)t[i].pop_back();
 				while (ans.size() > i + 1)ans.pop_back();
 				up = ans;
-				ans = expand(up, cn = 1);
+				ans = expand(up, cn = 0);
 				t = toMMS(ans);
 				goto nxt;
 			}
@@ -241,7 +241,7 @@ namespace MMS {
 				for (int j = 0; j < t[i].size(); j++)if (t[i][j] > 1 && (t[i][j] - 1) < t[i][0] - x[i]) {
 					for (int k = j + 1; k < ans[i].size(); k++)ans[i][k] = make_pair(-1, -1);
 					up = ans;
-					ans = expand(up, cn = 1);
+					ans = expand(up, cn = 0);
 					t = toMMYM(ans);
 					goto nxt;
 				}
