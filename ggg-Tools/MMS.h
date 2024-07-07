@@ -84,7 +84,11 @@ namespace MMS {
 			mag.push_back(v);
 		}
 		mag[0][br.row] = 1;
-		if (br.row < t + 1 && t > 0 && llvl == 1)br.row = x[n - 1][t].row;
+		if (br.row < t + 1 && t > 0 && llvl == 1) {
+			pair<int, int> h = make_pair(n - 1, t);
+			while (h.col > br.col)h = x[h.col][h.row], h.row += 1;
+			br.row = h.row - 1;
+		}
 		for (int i = br.col + 1; i < n; i++)for (int j = m - 1; j >= 0; j--)if ((x[i][j].col >= br.col && mag[x[i][j].col - br.col][x[i][j].row]) || (j < m - 1 && mag[i - br.col][j + 1]))mag[i - br.col][j] = 1;
 		for (int M = 1; M <= N; M++)for (int i = br.col + 1; i <= n - 1; i++) {
 			vector<pair<int, int> > v;
