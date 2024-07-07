@@ -198,7 +198,7 @@ namespace MMS {
 		for (int i = 0; i < n; i++) {
 			int t = 0;
 			while ((t == 0 && m > 1 && x[i][1].col != -1) || (t < m - 1 && x[i][t + 1].col != -1))t++;
-			for (int j = t; j >= 0; j--)ans[i][j] = (j == t ? 1 : ans[i][j + 1] + ans[x[i][j + 1].col][x[i][j + 1].row]);
+			for (int j = m - 1; j >= 0; j--)ans[i][j] = (j >= t ? 1 : ans[i][j + 1] + ans[x[i][j + 1].col][x[i][j + 1].row]);
 		}
 		return ans;
 	}
