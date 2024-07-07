@@ -84,7 +84,7 @@ namespace MMS {
 			mag.push_back(v);
 		}
 		mag[0][br.row] = 1;
-		if (br.row < t + 1 && t > 0 && llvl == 1) {
+		if (br.row < t && t > 0 && llvl == 1) {
 			pair<int, int> h = make_pair(n - 1, t);
 			while (h.col > br.col)h = x[h.col][h.row], h.row += 1;
 			br.row = h.row - 1;
