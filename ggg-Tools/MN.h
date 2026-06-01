@@ -169,7 +169,7 @@ namespace MN {
 		else return wp(sub(b, wp(gt())));
 	}
 	ct ifl(const ct& x, const ct& y, const ct& z, const ct& w) {
-		return add(w, sub(z, x));
+		return add(sub(z, x), w);
 	}
 	ct toct(int x) {
 		ct a = gt();
