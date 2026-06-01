@@ -48,5 +48,5 @@ jobs:
       with:
         name: release-build
         path: |
-          **/bin/Release/**
-          **/bin/Release/**/*
+          **/x64/Release/**
+          **/x64/Release/**/*
