@@ -241,6 +241,17 @@ namespace MN {
 		}
 		return x;
 	}
+	vector<ct> simp(vector<ct> x) {
+		for (int i = 1; i < x.size(); i++) {
+			ct y = gt();
+			for (int j = 0; j < x[i]->x.size(); j++) {
+				if (!y->x.empty() && y->x[y->x.size() - 1].B == x[i]->x[j].B)y->x.pop_back();
+				y->x.push_back(Q(cp(x[i]->x[j].A), x[i]->x[j].B));
+			}
+			x[i] = y;
+		}
+		return x;
+	}
 	vector<ct> expand2(vector<ct> x, int N) {
 		int n = x.size() - 1;
 		if (n == 0)return x;
@@ -296,6 +307,15 @@ namespace MN {
 	}
 	string expandstr(string str, int n) {
 		return tostr(expand(parse(str), n));
+	}
+	vector<ct> expandr(vector<ct> x, int N) {
+		x = cpl(x);
+		x = expand2(x, N);
+		x = simp(x);
+		return x;
+	}
+	string expandstrr(string str, int n) {
+		return tostr(expandr(parse(str), n));
 	}
 	vector<ct> parsew(string s) {
 		vector<ct> x;

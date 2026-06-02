@@ -56,6 +56,7 @@ string expand(int tp, string str, int n) {
 	if (tp == 5)return HSMS::expandstr(str, n, 1);
 	if (tp == 6)return MN::expandstr(str, n);
 	if (tp == 7)return MN::expandstrw(str, n);
+	if (tp == 8)return MN::expandstrr(str, n);
 	return "";
 }
 vector<vector<int> > expand(int tp, vector<vector<int> > x, int n) {
@@ -94,6 +95,7 @@ void init() {
 	TRIE::add("SMS", 2, 5);
 	TRIE::add("MNKM", 2, 6);
 	TRIE::add("wMN", 2, 7);
+	TRIE::add("RMNKM", 2, 8);
 }
 string spstr[110];
 int spcnt;
