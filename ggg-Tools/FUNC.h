@@ -93,7 +93,7 @@ void init() {
 	TRIE::add("HMS", 2, 4);
 	TRIE::add("SMS", 2, 5);
 	TRIE::add("MNKM", 2, 6);
-	TRIE::add("MNw", 2, 7);
+	TRIE::add("wMN", 2, 7);
 }
 string spstr[110];
 int spcnt;

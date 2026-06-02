@@ -173,6 +173,7 @@ namespace MN {
 	}
 	ct toct(int x) {
 		ct a = gt();
+		if (x == 0)return a;
 		a->x.push_back(Q(gt(), x));
 		return a;
 	}
