@@ -55,8 +55,9 @@ string expand(int tp, string str, int n) {
 	if (tp == 4)return HSMS::expandstr(str, n, 0);
 	if (tp == 5)return HSMS::expandstr(str, n, 1);
 	if (tp == 6)return MN::expandstr(str, n);
-	if (tp == 7)return MN::expandstrw(str, n);
+	if (tp == 7) { MN::md = 0; return MN::expandstrw(str, n); }
 	if (tp == 8)return MN::expandstrr(str, n);
+	if (tp == 9) { MN::md = 1; return MN::expandstrwp2(str, n); }
 	return "";
 }
 vector<vector<int> > expand(int tp, vector<vector<int> > x, int n) {
@@ -81,13 +82,14 @@ int chkstd(int tp, string str) {
 	return -1;
 }
 void init() {
-	cout << "CF ggg Tools Build7: wMN test" << endl << "input H to get help" << endl;
+	cout << "CF ggg Tools Build8: (>w~e0)MN test" << endl << "input H to get help" << endl;
 	TRIE::cnt = 2;
 	TRIE::add("QUIT", 1, 1);
 	TRIE::add("HELP", 1, 2);
 	TRIE::add("EXP", 1, 3);
 	TRIE::add("CVT", 1, 4);
 	TRIE::add("CHKSTD", 1, 5);
+	TRIE::add("SET", 1, 6);
 	TRIE::add("BMS", 2, 1);
 	TRIE::add("0Y", 2, 2);
 	TRIE::add("CMS", 2, 3);
@@ -96,6 +98,7 @@ void init() {
 	TRIE::add("MNKM", 2, 6);
 	TRIE::add("wMN", 2, 7);
 	TRIE::add("RMNKM", 2, 8);
+	TRIE::add("wp2MN", 2, 9);
 }
 string spstr[110];
 int spcnt;
@@ -111,7 +114,7 @@ string loop(string str) {
 		stt = 1;
 		return "";
 	}
-	if (cmd == 2)return "Q:quit\nH:help\nE:expand\nE [Notation] [To Expand] [#FS]\nCV:convert\nCV [From Notation] [To Notation] [To Convert]\nCH:check standard\nCH [Notation] [To Check]\nNotations: B:BMS 0:0Y C:CMS H:HMS S:SMS MNw:wMN";
+	if (cmd == 2)return "Q:quit\nH:help\nE:expand\nE [Notation] [To Expand] [#FS]\nCV:convert\nCV [From Notation] [To Notation] [To Convert]\nCH:check standard\nCH [Notation] [To Check]\nNotations: B:BMS 0:0Y C:CMS H:HMS S:SMS wM:wMN wp:w^2MN";
 	if (cmd == 3) {
 		int tp = TRIE::q(spstr[2], 2);
 		if (tp == 0)return "Unknown Type";
@@ -132,6 +135,10 @@ string loop(string str) {
 			if (res == 2)return "INVALID";
 			if (res == -1)return "Not Supported";
 		}
+	}
+	if (cmd == 6) {
+		int tp1 = TRIE::q(spstr[2], 2), tp2 = TRIE::q(spstr[3], 2);
+		if (tp1 == 1)MN::md = tp2;
 	}
 	return "";
 }

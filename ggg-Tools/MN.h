@@ -153,6 +153,19 @@ namespace MN {
 		if (a->x.size())b->x.push_back(Q(cp(a->x[0].A), 1));
 		return b;
 	}
+	ct cf(const ct& a) {
+		ct b = gt();
+		if (a->x.size())b->x.push_back(Q(cp(a->x[a->x.size() - 1].A), 1));
+		return b;
+	}
+	ct lcf(const ct& a) {
+		ct b = a;
+		if (b->x.size()) {
+			if (b->x[b->x.size() - 1].B == 1)b->x.pop_back();
+			else b->x[b->x.size() - 1].B--;
+		}
+		return b;
+	}
 	ct lg(const ct& a) {
 		ct b = gt();
 		if (a->x.size())b = a->x[0].A;
@@ -163,12 +176,32 @@ namespace MN {
 		b->x.push_back(Q(cp(a), 1));
 		return b;
 	}
+	ct lwp(const ct& a, const ct& b) {
+		ct c = gt();
+		for (int i = 0; i < a->x.size(); i++)c->x.push_back(Q(cp(add(b, a->x[i].A)), a->x[i].B));
+		return c;
+	}
+	int md = 0;
 	ct ifll(const ct& a) {
 		ct b = lg(a);
 		if (cmp(b, gt()) == 0)return gt();
-		else return wp(sub(b, wp(gt())));
+		else return wp(lcf(b));
 	}
 	ct ifl(const ct& x, const ct& y, const ct& z, const ct& w) {
+		if (md == 1) {
+			ct a = lg(sub(y, x));
+			if (cmp(cf(a), wp(wp(gt()))) == 0) {
+				ct a = gt(), b = sub(z, x);
+				ct c = b, d = sub(w, x);
+				while (1) {
+					if (cmp(d, b) <= 0)return add(x, add(c, lwp(sub(d, a), wp(gt()))));
+					ct e = sub(b, a);
+					c = add(c, lwp(e, wp(gt())));
+					a = b;
+					b = add(b, lwp(e, wp(gt())));
+				}
+			}
+		}
 		return add(sub(z, x), w);
 	}
 	ct toct(int x) {
@@ -206,7 +239,7 @@ namespace MN {
 		s += (v ? ')' : ']');
 		return s;
 	}
-	vector<ct> parse(string s) {
+	vector<ct> parse(string s) {//wrong complexity
 		vector<ct> x;
 		x.push_back(ct());
 		int l = s.length(), c = 0;
@@ -355,5 +388,53 @@ namespace MN {
 	}
 	string expandstrw(string str, int n) {
 		return wtostr(expand(parsew(str), n));
+	}
+	vector<ct> parsewp2(string s) {
+		vector<ct> x;
+		x.push_back(gt());
+		ct k = gt();
+		string t;
+		ct c = gt();
+		auto ht = [&]() {c = add(c, wp(sub(k, wp(gt()))).lek()), x[x.size() - 1]->x.push_back(Q(cp(c), parseint(t))), k = gt(), t = ""; };
+		for (int i = 0; i < s.length(); i++) {
+			if (s[i] == '(')x.push_back(gt()), c = gt();
+			if ('0' <= s[i] && s[i] <= '9')t += s[i];
+			else if (s[i] == ',') {
+				if (t.length())ht();
+				k = add(k, wp(gt()));
+			}
+			else if (s[i] == ';') {
+				if (t.length())ht();
+				k = add(k, wp(wp(gt())));
+			}
+			else if (s[i] == ')')if (t.length())ht();
+		}
+		return x;
+	}
+	string wp2tostr(vector<ct> x) {
+		if (x.size() == 1)return "/";
+		string s;
+		for (int i = 1; i < x.size(); i++) {
+			s += '(';
+			ct c = gt();
+			for (int j = 0; j < x[i]->x.size(); j++) {
+				ct d = add(wp(gt()), lg(sub(x[i]->x[j].A, c)));
+				c = x[i]->x[j].A;
+				while (cmp(d, wp(wp(gt()))) >= 0) {
+					s += ';';
+					d = sub(d, wp(wp(gt())));
+				}
+				while (cmp(d, wp(gt())) >= 0) {
+					s += ',';
+					d = sub(d, wp(gt()));
+				}
+				s += inttostr(x[i]->x[j].B);
+			}
+			s += ')';
+		}
+		return s;
+	}
+	string expandstrwp2(string str, int n) {
+		return wp2tostr(expand(parsewp2(str), n));
 	}
 }
