@@ -98,7 +98,8 @@ void init() {
 	TRIE::add("MNKM", 2, 6);
 	TRIE::add("wMN", 2, 7);
 	TRIE::add("RMNKM", 2, 8);
-	TRIE::add("wp2MN", 2, 9);
+	TRIE::add("w2MN", 2, 9);
+	TRIE::add("wp2MN", 2, 9);//bug
 }
 string spstr[110];
 int spcnt;
@@ -114,7 +115,7 @@ string loop(string str) {
 		stt = 1;
 		return "";
 	}
-	if (cmd == 2)return "Q:quit\nH:help\nE:expand\nE [Notation] [To Expand] [#FS]\nCV:convert\nCV [From Notation] [To Notation] [To Convert]\nCH:check standard\nCH [Notation] [To Check]\nNotations: B:BMS 0:0Y C:CMS H:HMS S:SMS wM:wMN wp:w^2MN";
+	if (cmd == 2)return "Q:quit\nH:help\nE:expand\nE [Notation] [To Expand] [#FS]\nCV:convert\nCV [From Notation] [To Notation] [To Convert]\nCH:check standard\nCH [Notation] [To Check]\nNotations: B:BMS 0:0Y C:CMS H:HMS S:SMS wM:wMN w2:w2MN";
 	if (cmd == 3) {
 		int tp = TRIE::q(spstr[2], 2);
 		if (tp == 0)return "Unknown Type";
